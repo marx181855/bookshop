@@ -53,7 +53,7 @@
 <script>
 import NavBar from 'components/common/navbar/NavBar'
 import { reactive } from 'vue'
-import { register } from 'network/user'
+import { register } from 'network/auth'
 import { Notify, Toast } from 'vant'
 import { useRouter } from 'vue-router'
 export default {

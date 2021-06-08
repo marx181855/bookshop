@@ -47,7 +47,7 @@
 
 <script>
 import NavBar from 'components/common/navbar/NavBar'
-import { logout, getUser } from 'network/user'
+import { logout, getUserDetail } from 'network/auth'
 import { Toast } from 'vant'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
@@ -63,14 +63,14 @@ export default {
       user: {}
     })
     onMounted(() => {
-      getUser().then((res) => {
+      getUserDetail().then((res) => {
         state.user = res
         console.log(res)
       })
     })
     const toLogout = () => {
       logout().then((res) => {
-        if (res.status === '204') {
+        if (res.status === 204) {
           Toast.success('退出成功')
           // 清除token
           window.localStorage.setItem('token', '')

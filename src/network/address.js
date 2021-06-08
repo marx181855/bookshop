@@ -1,11 +1,5 @@
 import { request } from './request'
 
-// 省市县数据
-export function getAreaData(pid = 0) {
-  return request({
-    url: '/api/city?pid=' + pid
-  })
-}
 // 添加地址
 export function addAddress(params) {
   return request({

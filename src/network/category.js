@@ -12,3 +12,9 @@ export function getCategoryGoods(order = 'sales', cid = 0, page = 1) {
 
   })
 }
+
+export function searchProduct(title, order = 'sales', cid = 0, page = 1) {
+  return request({
+    url: `/api/goods?category_id=${cid}&page=${page}&${order}=1&title=${title}`
+  })
+}

@@ -70,7 +70,7 @@
 import NavBar from 'components/common/navbar/NavBar'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import { getCart, modifyCart, checkedCart, deleteCartItem } from 'network/cart'
+import { getCartList, modifyCart, checkedCart, deleteCartItem } from 'network/cart'
 import { onMounted, reactive, toRefs, computed } from 'vue'
 import { Toast } from 'vant'
 
@@ -94,7 +94,7 @@ export default {
         message: '加载中...',
         forbidClick: true
       })
-      getCart('include=goods').then((res) => {
+      getCartList('include=goods').then((res) => {
         console.log(res)
         state.list = res.data
         state.result = res.data

@@ -73,10 +73,9 @@ import { useRouter, useRoute } from 'vue-router'
 import { computed, onMounted, reactive, toRefs } from 'vue'
 import {
   getOrderDetail,
-  confirmOrder,
-  payOrder,
-  getOrderStatus
+  confirmReceipt
 } from 'network/order'
+import { getPaymentStatus, getPaymentQRCode } from 'network/pay.js'
 import { Toast, Dialog } from 'vant'
 export default {
   components: {
@@ -125,14 +124,14 @@ export default {
     })
     const showPayFn = () => {
       state.showPay = true
-      payOrder(state.orderNo, { type: 'aliyun' }).then((res) => {
+      getPaymentQRCode(state.orderNo, { type: 'aliyun' }).then((res) => {
         console.log(res)
         state.aliyun = res.qr_code_url
         state.wechat = res.qr_code_url
       })
       const timer = setInterval(() => {
-        getOrderStatus(state.orderNo).then((res) => {
-          if (res === '2') {
+        getPaymentStatus(state.orderNo).then((res) => {
+          if (res === 2) {
             clearInterval(timer)
             state.showPay = false
             router.push({ path: '/orderdetail', query: { id: state.orderNo } })
@@ -145,9 +144,9 @@ export default {
         title: '是否确认订单'
       })
         .then(() => {
-          confirmOrder(state.orderNo).then(res => {
+          confirmReceipt(state.orderNo).then(res => {
             console.log(res)
-            if (res.status_code === '204') {
+            if (res.status_code === 204) {
               Toast('确认成功')
               init()
             }

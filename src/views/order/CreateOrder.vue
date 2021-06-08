@@ -66,11 +66,10 @@ import { computed, onMounted, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import {
-  createOrder,
-  getOrderPreview,
-  payOrder,
-  getOrderStatus
+  submitOrder,
+  orderPreview
 } from 'network/order.js'
+import { getPaymentStatus, getPaymentQRCode } from 'network/pay.js'
 import { Toast } from 'vant'
 export default {
   components: {
@@ -92,7 +91,7 @@ export default {
         message: '加载中...',
         forbidClick: true
       })
-      getOrderPreview().then((res) => {
+      orderPreview().then((res) => {
         let address = res.address.filter((n) => n.is_default === '1')
         if (address.length === 0) {
           state.address = {
@@ -118,27 +117,27 @@ export default {
       }
 
       // 创建订单
-      createOrder(params).then((res) => {
+      submitOrder(params).then((res) => {
         Toast.success('创建订单成功')
         store.dispatch('updateCart')
 
         state.showPay = true
         // 订单ID
         state.orderNo = res.id
-        payOrder(state.orderNo, { type: 'aliyun' }).then((res) => {
+        getPaymentQRCode(state.orderNo, { type: 'aliyun' }).then((res) => {
           console.log(res)
           state.aliyun = res.qr_code_url
           state.wechat = res.qr_code_url
         })
-        // payOrder(state.orderNo, { type: 'wechat' }).then((res) => {
+        // getPaymentQRCode(state.orderNo, { type: 'wechat' }).then((res) => {
         //   console.log(res)
         //   state.wechat = res.qr_code_url
         // })
 
         // 轮询查看
         const timer = setInterval(() => {
-          getOrderStatus(state.orderNo).then((res) => {
-            if (res === '2') {
+          getPaymentStatus(state.orderNo).then((res) => {
+            if (res === 2) {
               clearInterval(timer)
               router.push({ path: '/orderdetail', query: { id: state.orderNo } })
             }

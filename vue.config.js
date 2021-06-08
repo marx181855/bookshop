@@ -10,7 +10,12 @@ module.exports = {
       }
     }
   },
-  publicPath: process.env.NODE_ENV === 'production' ?
-    '/bookshop/dist/' :
-    '/'
+  publicPath: process.env.NODE_ENV === 'production' ? '/bookshop/dist/' : '/',
+  devServer: {
+    overlay: {
+      warnings: true,
+      errors: true
+    }
+  },
+  productionSourceMap: false
 }

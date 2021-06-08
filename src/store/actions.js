@@ -1,8 +1,8 @@
-import { getCart } from 'network/cart'
+import { getCartList } from 'network/cart'
 const actions = {
 
   updateCart({ commit }) {
-    getCart().then(res => {
+    getCartList().then(res => {
       commit('addCart', { count: res.data.length || 0 })
     })
   }

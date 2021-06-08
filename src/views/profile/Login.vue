@@ -6,6 +6,7 @@
     <div style="margin-top: 50px">
       <div style="text-align: center; padding-top: 50px">
         <van-image
+         lazy-load
           width="19rem"
           fit="contain"
           src="https://s3.amazonaws.com/prod.assets.thebanner/styles/article-large/s3/article/large/TIN-400%20Books%20from%20the%20Banner_large_all.jpg?itok=DUgsjKTH"
@@ -40,7 +41,7 @@
 <script>
 import NavBar from 'components/common/navbar/NavBar'
 import { reactive } from 'vue'
-import { login } from 'network/user'
+import { login } from 'network/auth'
 import { Toast } from 'vant'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
