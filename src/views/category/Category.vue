@@ -203,6 +203,7 @@ export default {
 <style lang="scss" scoped>
 #mainbox {
   margin-top: 45px;
+  background-color: white;
   .order-tab {
     height: 50px;
     z-index: 9;
