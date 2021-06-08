@@ -1,0 +1,37 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "383604",
+      "name": "个人中心",
+      "font_class": "gerenzhongxin",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "830348",
+      "name": "购物车",
+      "font_class": "icon8",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "2380628",
+      "name": "分类",
+      "font_class": "fenlei",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "9550466",
+      "name": "首页",
+      "font_class": "shouye",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    }
+  ]
+}

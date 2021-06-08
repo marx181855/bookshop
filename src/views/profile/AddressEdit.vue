@@ -1,0 +1,142 @@
+<template>
+  <div class="address-edit-box">
+    <NavBar>
+      <template v-slot:default>{{ title }}</template>
+    </NavBar>
+    <van-address-edit
+      :area-list="areaList"
+      :address-info="addressInfo"
+      :show-delete="type == 'edit'"
+      show-set-default
+      show-search-result
+      :search-result="searchResult"
+      :area-columns-placeholder="['请选择', '请选择', '请选择']"
+      @save="onSave"
+      @delete="onDelete"
+    />
+  </div>
+</template>
+
+<script>
+import NavBar from 'components/common/navbar/NavBar'
+import {
+  addAddress,
+  editAddress,
+  deleteAddress,
+  getAddressDetail
+} from 'network/address'
+import { Toast } from 'vant'
+import { reactive, toRefs, onMounted, computed } from 'vue'
+import { areaList } from '@vant/area-data'
+import { useRouter, useRoute } from 'vue-router'
+export default {
+  components: {
+    NavBar
+  },
+  setup() {
+    const router = useRouter()
+    const route = useRoute()
+    const state = reactive({
+      areaList: {
+        provice_list: {},
+        city_list: {},
+        county_list: {}
+      },
+      searchResult: [],
+      addressInfo: {},
+      type: 'add',
+      addressId: '',
+      title: ''
+    })
+    onMounted(() => {
+      state.areaList = areaList
+      console.log(areaList)
+
+      const { type, addressId } = route.query
+      state.type = type
+      state.addressId = addressId
+
+      if (type === 'edit') {
+        getAddressDetail(addressId).then((res) => {
+          console.log(res)
+          const addressDetail = res
+          let _areaCode = ''
+          for (let code in areaList.county_list) {
+            if (res.county === areaList.county_list[code]) {
+              _areaCode = code
+            }
+          }
+          state.addressInfo = {
+            name: addressDetail.name,
+            tel: addressDetail.phone,
+            province: addressDetail.province,
+            city: addressDetail.city,
+            county: addressDetail.county,
+            addressDetail: addressDetail.address,
+            isDefault: !!addressDetail.is_default,
+            areaCode: _areaCode
+          }
+        })
+      }
+    })
+    const title = computed(() => {
+      return state.type === 'add' ? '新增地址' : '编辑地址'
+    })
+    const onSave = (content) => {
+      console.log(content)
+      const params = {
+        name: content.name,
+        phone: content.tel,
+        province: content.province,
+        city: content.city,
+        county: content.county,
+        address: content.addressDetail,
+        is_default: content.isDefault ? 1 : 0
+      }
+      if (state.type === 'edit') {
+        // 修改数据
+        editAddress(state.addressId, params)
+      } else {
+        // 调用接口添加数据
+        addAddress(params)
+      }
+
+      Toast('保存成功')
+      setTimeout(() => {
+        router.back()
+      }, 1000)
+    }
+
+    const onDelete = () => {
+      deleteAddress(state.addressId).then((res) => {
+        Toast('删除成功')
+        setTimeout(() => {
+          router.back()
+        }, 1000)
+      })
+    }
+
+    return {
+      ...toRefs(state),
+      onSave,
+      onDelete,
+      title
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.edit {
+  .van-field__body {
+    textarea {
+      height: 26px !important;
+    }
+  }
+}
+.address-edit-box {
+  margin-top: 44px;
+  .van-address-edit {
+  }
+}
+</style>
