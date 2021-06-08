@@ -1,54 +1,52 @@
 <template>
-  <div>
-    <NavBar>
-      <template v-slot:default>分类页面</template>
-    </NavBar>
-    <div id="mainbox">
-      <div class="ordertab">
-        <van-tabs v-model="active" @click="tabClick">
-          <van-tab title="销量排序"></van-tab>
-          <van-tab title="价格排序"></van-tab>
-          <van-tab title="评论排序"></van-tab>
-        </van-tabs>
-      </div>
+  <NavBar>
+    <template v-slot:default>分类页面</template>
+  </NavBar>
+  <div id="mainbox">
+    <div class="order-tab">
+      <van-tabs v-model="active" @click="tabClick">
+        <van-tab title="销量排序"></van-tab>
+        <van-tab title="价格排序"></van-tab>
+        <van-tab title="评论排序"></van-tab>
+      </van-tabs>
+    </div>
 
-      <van-sidebar class="leftmenu" v-model="activeKey">
-        <van-collapse v-model="activeName" accordion>
-          <van-collapse-item
-            v-for="item in categories"
-            :key="item.id"
-            :title="item.name"
-            :name="item.name"
-          >
-            <van-sidebar-item
-              v-for="sub in item.children"
-              :key="sub.id"
-              :title="sub.name"
-              @click="getGoods(sub.id)"
-            />
-          </van-collapse-item>
-        </van-collapse>
-      </van-sidebar>
-
-      <div class="goodslist">
-        <div class="content">
-          <van-card
-            @click="itemClick(item.id)"
-            v-for="item in showGoods"
-            :key="item.id"
-            :num="item.comments_count"
-            :tag="item.comments_count >= 0 ? '流行' : '标签'"
-            :price="item.price"
-            :desc="item.updated_at"
-            :title="item.title"
-            :thumb="item.cover_url"
-            :lazy-load="true"
+    <van-sidebar class="leftmenu" v-model="activeKey">
+      <van-collapse v-model="activeName" accordion>
+        <van-collapse-item
+          v-for="item in categories"
+          :key="item.id"
+          :title="item.name"
+          :name="item.name"
+        >
+          <van-sidebar-item
+            v-for="sub in item.children"
+            :key="sub.id"
+            :title="sub.name"
+            @click="getGoods(sub.id)"
           />
-        </div>
+        </van-collapse-item>
+      </van-collapse>
+    </van-sidebar>
+
+    <div class="goodslist">
+      <div class="content">
+        <van-card
+          @click="itemClick(item.id)"
+          v-for="item in showGoods"
+          :key="item.id"
+          :num="item.comments_count"
+          :tag="item.comments_count >= 0 ? '流行' : '标签'"
+          :price="item.price"
+          :desc="item.updated_at"
+          :title="item.title"
+          :thumb="item.cover_url"
+          :lazy-load="true"
+        />
       </div>
     </div>
-    <BackTop @bTop="bTop" v-show="isShowBackTop"></BackTop>
   </div>
+  <BackTop @bTop="bTop" v-show="isShowBackTop"></BackTop>
 </template>
 
 <script>
@@ -205,10 +203,7 @@ export default {
 <style lang="scss" scoped>
 #mainbox {
   margin-top: 45px;
-  display: flex;
-  .ordertab {
-    flex: 1;
-    float: right;
+  .order-tab {
     height: 50px;
     z-index: 9;
     position: fixed;
@@ -223,20 +218,28 @@ export default {
     width: 130px;
   }
   .goodslist {
-    flex: 1;
     position: absolute;
     top: 100px;
     left: 130px;
     right: 0;
-    height: 100vh;
     padding: 10px;
     text-align: left !important;
+    overflow: hidden;
+    height: 100vh;
     .content {
-      // background: red;
     }
   }
 }
 .van-card__thumb {
   width: 68px !important;
+}
+@media screen and (min-width: 768px) {
+  #mainbox .goodslist {
+    height: 550px;
+  }
+  .leftmenu {
+    height: 550px;
+    overflow: hidden;
+  }
 }
 </style>

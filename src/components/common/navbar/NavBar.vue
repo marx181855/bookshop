@@ -4,7 +4,7 @@
         <img src="~assets/images/left.png" alt="">
       </slot>
       </div>
-    <div class="center"><slot>EWShop</slot></div>
+    <div class="center"><slot>图书商城</slot></div>
     <div class="right"><slot name="right"></slot></div>
   </div>
 </template>

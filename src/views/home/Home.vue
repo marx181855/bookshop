@@ -7,12 +7,12 @@
     v-show="isTabFixed"
     @tabClick="tabClick"
     :titles="['畅销', '新书', '精选']"
-    style="margin-top:45px">
-  </TabControl>
+    style="margin-top:45px"
+  ></TabControl>
 
   <div class="wrapper">
     <div class="content">
-      <div ref="banref" >
+      <div ref="banref">
         <HomeSwiper :banners="banners"></HomeSwiper>
         <RecommendView :recommends="recommends"></RecommendView>
       </div>
@@ -82,9 +82,6 @@ export default {
 
       // 触发滚动事件
       bscroll.on('scroll', (position) => {
-        // console.log(banref.value.offsetHeight)
-        // console.log(-position.y)
-
         isShowBackTop.value = isTabFixed.value = -position.y > banref.value.offsetHeight
       })
 

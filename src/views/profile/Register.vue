@@ -1,53 +1,51 @@
 <template>
-  <div>
-    <NavBar>
-      <template v-slot:default>新用户注册</template>
-    </NavBar>
-    <div style="margin-top: 50px">
-      <div style="text-align: center; padding-top: 50px">
-        <van-image
-          width="19rem"
-          fit="contain"
-          src="https://s3.amazonaws.com/prod.assets.thebanner/styles/article-large/s3/article/large/TIN-400%20Books%20from%20the%20Banner_large_all.jpg?itok=DUgsjKTH"
+  <NavBar>
+    <template v-slot:default>新用户注册</template>
+  </NavBar>
+  <div style="margin-top: 50px">
+    <div style="text-align: center; padding-top: 50px">
+      <van-image
+        width="19rem"
+        fit="contain"
+        src="https://s3.amazonaws.com/prod.assets.thebanner/styles/article-large/s3/article/large/TIN-400%20Books%20from%20the%20Banner_large_all.jpg?itok=DUgsjKTH"
+      />
+      <van-form @submit="onSubmit">
+        <van-field
+          v-model="userInfo.name"
+          name="name"
+          label="用户名"
+          placeholder="用户名"
+          :rules="[{ required: true, message: '请填写用户名' }]"
         />
-        <van-form @submit="onSubmit">
-          <van-field
-            v-model="userInfo.name"
-            name="name"
-            label="用户名"
-            placeholder="用户名"
-            :rules="[{ required: true, message: '请填写用户名' }]"
-          />
-          <van-field
-            v-model="userInfo.email"
-            name="email"
-            label="邮箱"
-            placeholder="邮箱"
-            :rules="[{ required: true, message: '请填写邮箱' }]"
-          />
-          <van-field
-            v-model="userInfo.password"
-            type="password"
-            name="password"
-            label="密码"
-            placeholder="密码"
-            :rules="[{ required: true, message: '请填写密码' }]"
-          />
-          <van-field
-            v-model="userInfo.password_confirmation"
-            type="password"
-            name="password_confirmation"
-            label="确认密码"
-            placeholder="确认密码"
-            :rules="[{ required: true, message: '请填写一致的密码' }]"
-          />
-          <div style="margin: 16px">
-            <div class="link-login" @click="$router.push({ path: '/login' })">已有账号，立即登录</div>
-            <van-button color="#44b883" round block type="primary" native-type="submit">提交</van-button>
-          </div>
-        </van-form>
-        <!-- <img src="~assets/images/logo.png" alt=""> -->
-      </div>
+        <van-field
+          v-model="userInfo.email"
+          name="email"
+          label="邮箱"
+          placeholder="邮箱"
+          :rules="[{ required: true, message: '请填写邮箱' }]"
+        />
+        <van-field
+          v-model="userInfo.password"
+          type="password"
+          name="password"
+          label="密码"
+          placeholder="密码"
+          :rules="[{ required: true, message: '请填写密码' }]"
+        />
+        <van-field
+          v-model="userInfo.password_confirmation"
+          type="password"
+          name="password_confirmation"
+          label="确认密码"
+          placeholder="确认密码"
+          :rules="[{ required: true, message: '请填写一致的密码' }]"
+        />
+        <div style="margin: 16px">
+          <div class="link-login" @click="$router.push({ path: '/login' })">已有账号，立即登录</div>
+          <van-button color="#44b883" round block type="primary" native-type="submit">提交</van-button>
+        </div>
+      </van-form>
+      <!-- <img src="~assets/images/logo.png" alt=""> -->
     </div>
   </div>
 </template>

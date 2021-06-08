@@ -58,8 +58,7 @@
         <van-checkbox @click="allCheck" v-model="checkAll">全选</van-checkbox>
       </van-submit-bar>
       <div class="empty" v-if="!list.length">
-        <!-- <img class="empty-cart" src="~assets/images/emptyShopCart.png" alt="空购物车"/> -->
-        <img class="empty-cart" alt="空购物车"/>
+        <img class="empty-cart" src="~assets/images/emptyShopCart.png" alt="空购物车"/>
         <div class="title">购物车空空如也</div>
         <van-button round color="#1baeae" type="primary" black @click="goTo">前往选购</van-button>
       </div>
@@ -127,7 +126,7 @@ export default {
     }
     // 前往购物
     const goTo = () => {
-      router.push({ path: '/home' })
+      router.push({ path: '/' })
     }
     // 删除商品
     const deleteGood = (id) => {

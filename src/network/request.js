@@ -24,6 +24,7 @@ export function request(config) {
   instance.interceptors.response.use(res => {
     return res.data ? res.data : res
   }, err => {
+    console.log(err)
     // 如果有需要授权才可以访问的接口，统一去login授权
     if (err.response.status === '401') {
       Toast.fail('请先登录')

@@ -1,41 +1,39 @@
 <template>
-  <div>
-    <router-view />
-    <!-- <router-view v-slot="{ Component }">
+  <router-view />
+  <!-- <router-view v-slot="{ Component }">
       <transition>
         <keep-alive>
           <component :is="Component" />
         </keep-alive>
       </transition>
-    </router-view>-->
-    <div id="nav">
-      <router-link class="tab-bar-item" to="/">
-        <div class="icon">
-          <i class="iconfont icon-shouye"></i>
-        </div>
-        <div>首页</div>
-      </router-link>
-      <router-link class="tab-bar-item" to="/category">
-        <div class="icon">
-          <i class="iconfont icon-fenlei"></i>
-        </div>
-        <div>分类</div>
-      </router-link>
-      <router-link class="tab-bar-item" to="/shopcart">
-        <div class="icon">
-          <van-badge :content="$store.state.cartCount" max="9">
-            <i class="iconfont icon-icon8"></i>
-          </van-badge>
-        </div>
-        <div>购物车</div>
-      </router-link>
-      <router-link class="tab-bar-item" to="/profile">
-        <div class="icon">
-          <i class="iconfont icon-gerenzhongxin"></i>
-        </div>
-        <div>个人中心</div>
-      </router-link>
-    </div>
+  </router-view>-->
+  <div id="nav">
+    <router-link class="tab-bar-item" to="/">
+      <div class="icon">
+        <i class="iconfont icon-shouye"></i>
+      </div>
+      <div>首页</div>
+    </router-link>
+    <router-link class="tab-bar-item" to="/category">
+      <div class="icon">
+        <i class="iconfont icon-fenlei"></i>
+      </div>
+      <div>分类</div>
+    </router-link>
+    <router-link class="tab-bar-item" to="/shopcart">
+      <div class="icon">
+        <van-badge :content="$store.state.cartCount" max="9">
+          <i class="iconfont icon-icon8"></i>
+        </van-badge>
+      </div>
+      <div>购物车</div>
+    </router-link>
+    <router-link class="tab-bar-item" to="/profile">
+      <div class="icon">
+        <i class="iconfont icon-gerenzhongxin"></i>
+      </div>
+      <div>个人中心</div>
+    </router-link>
   </div>
 </template>
 <script>
@@ -43,7 +41,7 @@ import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
-  setup () {
+  setup() {
     const store = useStore()
     onMounted(() => {
       if (store.state.user.isLogin === true) {
@@ -96,7 +94,6 @@ export default {
 @media screen and (min-width: 768px) {
   #app {
     width: 375px;
-    // background-color: rgb(178, 227, 243);
     height: 667px;
     position: absolute;
     left: 50%;
