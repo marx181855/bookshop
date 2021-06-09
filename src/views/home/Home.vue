@@ -147,7 +147,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .banners img {
   width: 100%;
   height: auto;
@@ -160,8 +160,6 @@ export default {
   left: 0px;
   right: 0px;
   overflow: hidden;
-}
-.better-scroll-content {
 }
 
 </style>

@@ -24,15 +24,16 @@ export function request(config) {
   instance.interceptors.response.use(res => {
     return res.data ? res.data : res
   }, err => {
-    console.log(err)
+    console.log(err.response)
+    console.log(err.request)
 
-    if (err.response.status === '401') {
+    if (err.response.status === 401) {
       Toast.fail('请先登录')
       setTimeout(() => {
         router.push({ path: '/login' })
       }, 1000)
     }
-    Toast('网络好像出了点问题，等会再试试....')
+    // Toast('网络好像出了点问题，等会再试试....')
     // 如果有需要授权才可以访问的接口，统一去login授权
     // err.response.data.message && Notify(err.response.data.message)
     // 如果有错误，这里面会处理，显示错误信息

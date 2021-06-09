@@ -1,23 +1,17 @@
 <template>
-  <!-- <NavBar>
-    <template v-slot:default>
-      <van-search v-model="value" show-action label="地址" placeholder="请输入搜索关键词" @search="onSearch" background="#42b983">
-        <template #action>
-          <div @click="onSearch">搜索</div>
-        </template>
-      </van-search>
-    </template>
-  </NavBar> -->
   <div class="search-bar">
     <van-search
-      v-model="value"
+      v-model="searchKey"
       show-action
-      label="地址"
+      label="书籍"
       placeholder="请输入搜索关键词"
       @search="onSearch"
       background="#42b983"
       input-align="center"
       shape="round"
+      clearable
+      @clear="onClear"
+      clear-trigger="always"
     >
       <template #action>
         <div @click="onSearch">搜索</div>
@@ -75,7 +69,7 @@
 import NavBar from 'components/common/navbar/NavBar'
 import BackTop from 'components/common/backtop/BackTop'
 import { computed, nextTick, onMounted, reactive, ref } from 'vue'
-import { getCategoryData, getCategoryGoods } from 'network/category'
+import { getCategoryData, getCategoryGoods, searchProduct } from 'network/category'
 import { useRouter } from 'vue-router'
 import BScroll from 'better-scroll'
 
@@ -111,6 +105,17 @@ export default {
         list: []
       }
     })
+
+    let searchKey = ref('')
+    const onSearch = () => {
+      console.log('搜索中', searchKey.value)
+      searchProduct(searchKey.value).then((res) => {
+        console.log(res)
+      })
+    }
+    const onClear = () => {
+      console.log('清除内容')
+    }
 
     let betterScrollGoodList = reactive({})
     const showGoods = computed(() => {
@@ -201,7 +206,11 @@ export default {
     const bTop = () => {
       betterScrollGoodList.scrollTo(0, 0, 500)
     }
+
     return {
+      onSearch,
+      onClear,
+      searchKey,
       activeKey,
       categories,
       activeName,
@@ -218,7 +227,6 @@ export default {
       }
     }
   }
-
 }
 </script>
 
