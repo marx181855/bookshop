@@ -245,6 +245,10 @@ export default {
     top: 89px;
     width: 130px;
     bottom: 50px;
+    scrollbar-width: none;
+  }
+  .leftmenu::-webkit-scrollbar {
+    display: none;
   }
   .goodslist {
     position: fixed;
@@ -258,9 +262,5 @@ export default {
     }
   }
 }
-@media screen and (min-width: 768px) {
-  .leftmenu::-webkit-scrollbar {
-    display: none;
-  }
-}
+
 </style>
