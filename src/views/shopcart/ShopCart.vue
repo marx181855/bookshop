@@ -1,11 +1,11 @@
 <template>
   <NavBar>
     <template v-slot:default>
-      购物车(
-      <span style="color: red">{{ $store.state.cartCount }}</span>)
+      购物车（
+      <span style="color: red">{{ $store.state.cartCount }}</span>）
     </template>
   </NavBar>
-  <div class="cart-box">
+  <div class="cart-box" v-if="list.length">
     <van-checkbox-group @change="groupChange" ref="checkboxGroup" v-model="result">
       <van-swipe-cell :right-width="50" v-for="(item, index) in list" :key="index">
         <div class="good-item">
@@ -188,19 +188,55 @@ export default {
 
 <style lang='scss' scoped>
 .cart-box {
-  /* position: fixed;
-  top: 45px;
-  bottom: 50px; */
-  .van-checkbox-group{
-    /* position: fixed;
-    top: 45px;
-    bottom: 100px;
-    overflow: hidden; */
+  position: fixed;
+  top: 60px;
+  bottom: 100px;
+  right: 0;
+  left: 0;
+  padding-left: 10px;
+  overflow: auto;
+  .good-item {
+    display: flex;
+    .good-img {
+      img {
+        width: 100px;
+      }
+    }
+    .good-desc {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-around;
+      .good-title {
+        display: flex;
+        justify-content: space-around;
+      }
+      .good-btn {
+        display: flex;
+        justify-content: space-around;
+        .price {
+          color: red;
+        }
+      }
+    }
   }
+}
+.cart-box::-webkit-scrollbar {
+  display: none;
 }
 .van-submit-bar {
   position: fixed;
   bottom: 50px;
   z-index: 0;
+}
+.empty {
+  .empty-cart {
+    width: 300px;
+    margin: auto;
+    margin-top: 50%;
+  }
+  .title {
+    margin-bottom: 10px;
+  }
 }
 </style>
