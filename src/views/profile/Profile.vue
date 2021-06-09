@@ -6,7 +6,7 @@
     <div class="user-box">
       <div class="user-info">
         <div class="info">
-          <img :src="user.avatar_url" alt="" />
+          <img :src="user.avatar_url" alt />
           <div class="user-desc">
             <span>昵称：{{ user.name }}</span>
             <span>登录名：{{ user.email }}</span>
@@ -38,16 +38,15 @@
       </ul>
     </div>
     <div style="margin: 15px">
-      <van-button @click="toLogout" round block color="#44ba80"
-        >退出登录</van-button
-      >
+      <van-button @click="toLogout" round block color="#44ba80">退出登录</van-button>
     </div>
   </div>
 </template>
 
 <script>
 import NavBar from 'components/common/navbar/NavBar'
-import { logout, getUserDetail } from 'network/auth'
+import { logout } from 'network/auth'
+import { getUserDetail } from 'network/user'
 import { Toast } from 'vant'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
@@ -56,7 +55,7 @@ export default {
   components: {
     NavBar
   },
-  setup () {
+  setup() {
     const store = useStore()
     const router = useRouter()
     const state = reactive({
@@ -70,6 +69,7 @@ export default {
     })
     const toLogout = () => {
       logout().then((res) => {
+        console.log(res)
         if (res.status === 204) {
           Toast.success('退出成功')
           // 清除token

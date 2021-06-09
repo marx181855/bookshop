@@ -1,6 +1,6 @@
 import { request } from './request'
 
-export function getUserDetailDetail() {
+export function getUserDetail() {
   return request({
     url: '/api/user'
   })

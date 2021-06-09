@@ -95,7 +95,7 @@ export default {
   #app {
     width: 375px;
     height: 667px;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

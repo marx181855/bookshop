@@ -4,9 +4,9 @@ import router from './router'
 import store from './store'
 
 import 'vant/lib/index.css'
-import { Swipe, SwipeItem, Lazyload, Badge, Sidebar, SidebarItem, Collapse, CollapseItem, Tab, Tabs, Card, Image as VanImage, Tag, Button, Form, Field, Checkbox, CheckboxGroup, SwipeCell, Stepper, SubmitBar, Icon, AddressEdit, AddressList, Popup, Grid, GridItem, PullRefresh, List, Toast } from 'vant'
+import { Swipe, SwipeItem, Lazyload, Badge, Sidebar, SidebarItem, Collapse, CollapseItem, Tab, Tabs, Card, Image as VanImage, Tag, Button, Form, Field, Checkbox, CheckboxGroup, SwipeCell, Stepper, SubmitBar, Icon, AddressEdit, AddressList, Popup, Grid, GridItem, PullRefresh, List, Search } from 'vant'
 createApp(App)
-  .use(Toast)
+  .use(Search)
   .use(Swipe)
   .use(SwipeItem)
   .use(Lazyload, {
