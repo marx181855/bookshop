@@ -7,8 +7,8 @@ const Category = () => import('../views/category/Category.vue')
 const Detail = () => import('../views/detail/Detail.vue')
 const Profile = () => import('../views/profile/Profile.vue')
 const ShopCart = () => import('../views/shopcart/ShopCart.vue')
-const Register = () => import('../views/profile/Register.vue')
-const Login = () => import('../views/profile/Login.vue')
+const Register = () => import('../views/auth/Register.vue')
+const Login = () => import('../views/auth/Login.vue')
 const Address = () => import('../views/profile/Address.vue')
 const AddressEdit = () => import('../views/profile/AddressEdit.vue')
 const CreateOrder = () => import('../views/order/CreateOrder.vue')
@@ -129,7 +129,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   // 如果没有登陆，在这里到Login
-
   if (to.meta.isAuthRequired && store.state.user.isLogin === false) {
     Notify('您还没有登录，请先登录')
     return next('/login')

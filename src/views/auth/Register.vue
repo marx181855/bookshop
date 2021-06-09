@@ -4,11 +4,7 @@
   </NavBar>
   <div style="margin-top: 50px">
     <div style="text-align: center; padding-top: 50px">
-      <van-image
-        width="19rem"
-        fit="contain"
-        src="https://s3.amazonaws.com/prod.assets.thebanner/styles/article-large/s3/article/large/TIN-400%20Books%20from%20the%20Banner_large_all.jpg?itok=DUgsjKTH"
-      />
+      <van-image width="19rem" fit="contain" :src="require('assets/images/authBanner.jpg')" />
       <van-form @submit="onSubmit">
         <van-field
           v-model="userInfo.name"

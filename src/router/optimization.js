@@ -48,7 +48,7 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: () => import('../views/profile/Register.vue'),
+    component: () => import('../views/auth/Register.vue'),
     meta: {
       title: '用户注册'
     }
@@ -56,7 +56,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/profile/Login.vue'),
+    component: () => import('../views/auth/Login.vue'),
     meta: {
       title: '用户登录'
     }
