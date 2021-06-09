@@ -224,6 +224,9 @@ export default {
 .cart-box::-webkit-scrollbar {
   display: none;
 }
+.van-button{
+  height:100%;
+}
 .van-submit-bar {
   position: fixed;
   bottom: 50px;
