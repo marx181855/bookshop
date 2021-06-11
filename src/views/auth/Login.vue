@@ -5,7 +5,12 @@
     </NavBar>
     <div style="margin-top: 50px">
       <div style="text-align: center; padding-top: 50px">
-        <van-image lazy-load width="19rem" fit="contain" :src="require('assets/images/authBanner.jpg')" />
+        <van-image
+          lazy-load
+          width="19rem"
+          fit="contain"
+          :src="require('assets/images/authBanner.jpg')"
+        />
         <van-form @submit="onSubmit">
           <van-field
             v-model="userInfo.email"
@@ -24,8 +29,20 @@
           />
 
           <div style="margin: 16px">
-            <div class="link-register" @click="$router.push({ path: '/register' })">没有账号，立即注册</div>
-            <van-button color="#44b883" round block type="primary" native-type="submit">提交</van-button>
+            <div
+              class="link-register"
+              @click="$router.push({ path: '/register' })"
+            >
+              没有账号，立即注册
+            </div>
+            <van-button
+              color="#44b883"
+              round
+              block
+              type="primary"
+              native-type="submit"
+              >提交</van-button
+            >
           </div>
         </van-form>
       </div>
@@ -89,5 +106,15 @@ export default {
   color: #42b983;
   display: inline-block;
   float: left;
+}
+@media screen and (min-width: 768px) {
+  .van-notify--danger {
+    position: fixed;
+    width: 375px;
+    left: 0;
+    right: 0;
+    top: 43px;
+    margin: auto;
+  }
 }
 </style>

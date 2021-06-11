@@ -10,7 +10,7 @@
           <div class="user-desc">
             <span>昵称：{{ user.name }}</span>
             <span>登录名：{{ user.email }}</span>
-            <span class="name">个性签名：成就自己哈哈哈</span>
+            <span class="name">个性签名：还没想好要写什么</span>
           </div>
         </div>
       </div>
@@ -23,7 +23,7 @@
           <span>我的订单</span>
           <van-icon name="arrow" />
         </li>
-        <li class="van-hairline--bottom" @click="goTo('/setting')">
+        <li class="van-hairline--bottom" @click="goTo('/account')">
           <span>账号管理</span>
           <van-icon name="arrow" />
         </li>

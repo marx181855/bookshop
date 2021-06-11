@@ -136,7 +136,25 @@ export default {
 }
 .address-edit-box {
   margin-top: 44px;
-  .van-address-edit {
+  // .van-address-edit {
+  // }
+}
+@media screen and (min-width: 768px) {
+  .van-popup--bottom.van-popup--round {
+    left: 0;
+    right: 0;
+    width: 375px;
+    margin: auto;
+    bottom: 45px;
+  }
+  .van-overlay {
+    width: 375px;
+    height: 667px;
+    position: fixed;
+    margin: auto;
+    left: 0px;
+    top: 42px;
+    right: 0px;
   }
 }
 </style>

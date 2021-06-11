@@ -1,9 +1,15 @@
 <template>
-  <div>
-    <NavBar>
-      <template v-slot:default>商品详情：{{ id }}</template>
-    </NavBar>
-    <van-image style="margin-top: 50px" width="100%" fit="contain" :src="detail.cover_url" />
+  <NavBar>
+    <template v-slot:default>商品详情：{{ id }}</template>
+  </NavBar>
+  <div class="box">
+    <van-image
+      width="375"
+      fit="contain"
+      :src="detail.cover_url"
+      lazy-load
+      height="375"
+    />
     <van-card
       style="text-align: left"
       :num="detail.stock"
@@ -14,14 +20,25 @@
       <template #tags>
         <van-tag plain type="danger">新书</van-tag>
         <van-tag plain type="danger">
-          {{
-            detail.is_recommend ? "推荐" : "不推荐"
-          }}
+          {{ detail.is_recommend ? "推荐" : "不推荐" }}
         </van-tag>
       </template>
       <template #footer>
-        <van-button type="warning" @click="handleAddCart">加入购物车</van-button>
-        <van-button type="danger" @click="goToCart">立即购买</van-button>
+        <van-action-bar>
+          <van-action-bar-icon icon="cart-o" text="购物车" to="/shopcart" />
+          <van-action-bar-icon
+            :icon="collectIcon.icon"
+            :text="collectIcon.text"
+            color="#ff5000"
+            @click="handleCollect"
+          />
+          <van-action-bar-button
+            type="warning"
+            text="加入购物车"
+            @click="handleAddCart"
+          />
+          <van-action-bar-button type="danger" text="立即购买" @click="goToCart" />
+        </van-action-bar>
       </template>
     </van-card>
     <van-tabs v-model="active">
@@ -34,14 +51,6 @@
         </div>
         <div v-else>
           暂时没有评论
-          <br />暂时没有评论
-          <br />暂时没有评论
-          <br />暂时没有评论
-          <br />暂时没有评论
-          <br />暂时没有评论
-          <br />暂时没有评论
-          <br />暂时没有评论
-          <br />
         </div>
       </van-tab>
       <van-tab title="相关图书">
@@ -59,7 +68,9 @@ import { useStore } from 'vuex'
 import { ref, onMounted, reactive, toRefs } from 'vue'
 import { getDetail } from 'network/detail'
 import { addCart } from 'network/cart'
+import { collectAndCancel } from 'network/collect'
 import { Toast } from 'vant'
+
 export default {
   components: {
     NavBar,
@@ -74,15 +85,39 @@ export default {
       detail: {},
       like_goods: []
     })
+    let collectIcon = reactive({
+      icon: '',
+      text: ''
+    })
     let id = ref(0)
     onMounted(() => {
       id.value = route.query.id
       getDetail(id.value).then((res) => {
         book.detail = res.goods
         book.like_goods = res.like_goods
+        if (res.goods.is_collect) {
+          collectIcon.icon = 'star'
+          collectIcon.text = '已收藏'
+        } else {
+          collectIcon.icon = 'star-o'
+          collectIcon.text = '收藏'
+        }
         console.log(res)
       })
     })
+    // 收藏
+    const handleCollect = () => {
+      collectAndCancel(id.value).then(res => {
+        if (res.status === 201) {
+          Toast.success('收藏成功')
+          collectIcon.icon = 'star'
+          collectIcon.text = '已收藏'
+        } else if (res.status === 204) {
+          Toast.success('取消收藏成功')
+          collectIcon.icon = 'star-o'
+        }
+      })
+    }
     // 添加购物车
     const handleAddCart = () => {
       addCart({
@@ -116,18 +151,33 @@ export default {
       ...toRefs(book),
       active,
       handleAddCart,
-      goToCart
+      goToCart,
+      collectIcon,
+      handleCollect
     }
   }
 }
 </script>
 
 <style lang="scss">
-.content {
-  padding: 10px;
-  img {
-    max-width: 100%;
-    height: auto;
+.box {
+  overflow: auto;
+  position: fixed;
+  top: 45px;
+  bottom: 50px;
+  .van-image {
+    width: 375px;
+    height: 375px;
+  }
+  .content {
+    padding: 10px;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  .van-action-bar {
+    position: relative;
   }
 }
 </style>

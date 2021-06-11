@@ -1,14 +1,15 @@
 import { request } from './request'
 
-export function getMycollection (data) {
+export function getMycollection(page = 0) {
   return request({
     url: '/api/collects',
-    data
+    page
   })
 }
 
-export function collectAndCancel (data) {
+export function collectAndCancel(data) {
   return request({
-    url: `/api/collects/goods/${data}`
+    url: `/api/collects/goods/${data}`,
+    method: 'POST'
   })
 }

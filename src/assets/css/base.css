@@ -35,3 +35,10 @@ a {
 .right {
   float: right;
 }
+
+*::-webkit-scrollbar {
+  display: none;
+}
+*{
+  scrollbar-width: none;
+}
