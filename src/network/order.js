@@ -27,10 +27,13 @@ export function getOrderDetail(order) {
 }
 
 // 获取订单列表
-export function getOrderList(params) {
+export function getOrderList(status = 0) {
   return request({
     url: '/api/orders',
-    params
+    params: {
+      status,
+      include: 'user,orderDetails.goods'
+    }
   })
 }
 

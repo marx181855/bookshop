@@ -90,7 +90,10 @@ export default {
     display: none;
   }
   .address-item {
-    margin-top: 45px;
+    position: fixed;
+    top: 45px;
+    overflow: auto;
+    bottom: 50px;
     .van-button {
       background: var(--color-tint);
       border-color: var(--color-tint);

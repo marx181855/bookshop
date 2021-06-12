@@ -23,10 +23,10 @@
           <span>我的订单</span>
           <van-icon name="arrow" />
         </li>
-        <li class="van-hairline--bottom" @click="goTo('/account')">
+        <!-- <li class="van-hairline--bottom" @click="goTo('/account')">
           <span>账号管理</span>
           <van-icon name="arrow" />
-        </li>
+        </li> -->
         <li class="van-hairline--bottom" @click="goTo('/address')">
           <span>地址管理</span>
           <van-icon name="arrow" />
@@ -38,7 +38,9 @@
       </ul>
     </div>
     <div style="margin: 15px">
-      <van-button @click="toLogout" round block color="#44ba80">退出登录</van-button>
+      <van-button @click="toLogout" round block color="#44ba80"
+        >退出登录</van-button
+      >
     </div>
   </div>
 </template>
@@ -98,6 +100,8 @@ export default {
 #box {
   background: #fcfcfc;
   height: 100vh;
+  position: fixed;
+  width: 100%;
   .user-box {
     margin-top: 65px;
     .user-header {

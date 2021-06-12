@@ -1,12 +1,12 @@
 <template>
-  <router-view />
-  <!-- <router-view v-slot="{ Component }">
-      <transition>
-        <keep-alive>
-          <component :is="Component" />
-        </keep-alive>
-      </transition>
-  </router-view>-->
+  <!-- <router-view /> -->
+  <router-view v-slot="{ Component }">
+    <transition>
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </transition>
+  </router-view>
   <div id="nav">
     <router-link class="tab-bar-item" to="/">
       <div class="icon">
@@ -60,7 +60,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height:100vh;
+  height: 100vh;
 }
 
 #nav {
@@ -71,6 +71,7 @@ export default {
   right: 0;
   bottom: 0;
   box-shadow: 0 -3px 1px rgba(100, 100, 100, 0.1);
+  z-index: 9;
   a {
     color: var(--color-text);
 
@@ -103,6 +104,7 @@ export default {
   }
   #nav {
     position: absolute;
+    z-index: 9;
   }
 }
 </style>

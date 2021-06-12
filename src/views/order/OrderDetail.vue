@@ -22,8 +22,11 @@
         style="margin-bottom: 10px"
         color="#1baeae"
         block
-      >去支付</van-button>
-      <van-button v-if="detail.status == 3" @click="handleConfirmOrder">确认订单</van-button>
+        >去支付</van-button
+      >
+      <van-button v-if="detail.status == 3" @click="handleConfirmOrder"
+        >确认订单</van-button
+      >
     </div>
     <div class="order-price">
       <div class="price-item">
@@ -36,18 +39,23 @@
       </div>
     </div>
 
-    <van-card
-      v-for="item in detail.orderDetails.data"
-      :key="item.id"
-      :num="item.num"
-      :price="item.price"
-      desc="全场包邮"
-      :title="item.goods.title"
-      :thumb="item.goods.cover_url"
-    />
-
+    <div class="goods">
+      <van-card
+        v-for="item in detail.orderDetails.data"
+        :key="item.id"
+        :num="item.num"
+        :price="item.price"
+        desc="全场包邮"
+        :title="item.goods.title"
+        :thumb="item.goods.cover_url"
+      />
+    </div>
     <div style="width: 100%; height: 50px"></div>
-    <van-popup v-model:show="showPay" position="bottom" :style="{ height: '40%' }">
+    <van-popup
+      v-model:show="showPay"
+      position="bottom"
+      :style="{ height: '40%' }"
+    >
       <div :style="{ width: '90%', margin: '0 auto', padding: '50px 0' }">
         <van-grid :border="false" :column-num="2">
           <van-grid-item>
@@ -171,7 +179,9 @@ export default {
 
 <style lang="scss" scoped>
 .order-status {
-  margin-top: 50px;
+  position: fixed;
+  width: 100%;
+  top: 45px;
   .status-item {
     text-align: left;
     padding: 5px;
@@ -184,12 +194,18 @@ export default {
   }
 }
 .order-price {
-  text-align: left;
+  position: fixed;
+  top: 190px;
   margin-left: 10px;
-  margin-top: 30px;
-  margin-bottom: 30px;
   label {
     color: grey;
   }
+}
+.goods {
+  position: fixed;
+  top: 240px;
+  width: 100%;
+  bottom: 50px;
+  overflow: auto;
 }
 </style>

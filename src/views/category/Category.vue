@@ -61,6 +61,9 @@
         />
       </div>
     </div>
+    <div class="tip-text" v-show="!showGoods.length">
+      <p>暂时没有商品哦.......</p>
+    </div>
   </div>
   <BackTop @bTop="bTop" v-show="isShowBackTop"></BackTop>
 </template>
@@ -109,8 +112,9 @@ export default {
     let searchKey = ref('')
     const onSearch = () => {
       console.log('搜索中', searchKey.value)
-      searchProduct(searchKey.value).then((res) => {
+      searchProduct(searchKey.value, currentOrderTab.value).then((res) => {
         console.log(res)
+        goods[currentOrderTab.value].list = res.goods.data
       })
     }
     const onClear = () => {
@@ -119,6 +123,7 @@ export default {
 
     let betterScrollGoodList = reactive({})
     const showGoods = computed(() => {
+      console.log(goods[currentOrderTab.value].list)
       return goods[currentOrderTab.value].list
     })
 
@@ -261,6 +266,15 @@ export default {
       padding-bottom: 50px;
     }
   }
+  .tip-text {
+    position: fixed;
+    left: 130px;
+    top: 89px;
+    bottom: 50px;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
-
 </style>

@@ -6,11 +6,12 @@
     <div class="content">
       <van-swipe-cell v-for="item in state" :key="item.id">
         <van-card
-          :price="item.goods.price"
+          :price="item.goods.price + '.00'"
           :desc="item.goods.description"
           :title="item.goods.title"
           class="goods-card"
           :thumb="item.goods.cover_url"
+          @click="goToGoodDetai(item.goods_id)"
         />
         <template #right>
           <van-button
@@ -32,13 +33,14 @@ import NavBar from 'components/common/navbar/NavBar'
 import { onMounted, ref } from '@vue/runtime-core'
 import { getMycollection, collectAndCancel } from 'network/collect'
 import { Toast } from 'vant'
-
+import { useRouter } from 'vue-router'
 export default {
   components: {
     NavBar
   },
   setup() {
     let state = ref([])
+    const router = useRouter()
     const initData = () => {
       Toast.loading({
         message: '加载中...',
@@ -54,9 +56,11 @@ export default {
     onMounted(() => {
       initData()
     })
+    const goToGoodDetai = (id) => {
+      router.push({ path: '/detail', query: { id } })
+    }
     const deleteCollect = (id) => {
       console.log('删除了')
-
       collectAndCancel(id).then(res => {
         if (res.status === 204) {
           initData()
@@ -66,7 +70,8 @@ export default {
     }
     return {
       state,
-      deleteCollect
+      deleteCollect,
+      goToGoodDetai
     }
   }
 }

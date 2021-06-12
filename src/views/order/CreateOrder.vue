@@ -8,8 +8,9 @@
         <span>{{ address.name }}</span>
         <span>{{ address.phone }}</span>
       </div>
-      <div class="address">{{ address.province + address.city + address.county + address.address }}</div>
-      <van-icon class="arrow" name="arrow" />
+      <div class="address">
+        {{ address.province + address.city + address.county + address.address }}
+      </div>
     </div>
     <div class="good">
       <div class="good-item" v-for="(item, index) in cartList" :key="index">
@@ -35,7 +36,8 @@
       :price="total * 100"
       button-text="生成订单"
       @submit="handleCreateOrder"
-    >商品余额</van-submit-bar>
+      >商品余额</van-submit-bar
+    >
     <van-popup
       v-model:show="showPay"
       closeable
@@ -86,13 +88,14 @@ export default {
       aliyun: '',
       wechat: ''
     })
-    const init = () => {
+    const initData = () => {
       Toast.loading({
         message: '加载中...',
         forbidClick: true
       })
       orderPreview().then((res) => {
-        let address = res.address.filter((n) => n.is_default === '1')
+        let address = res.address.filter((n) => n.is_default === 1)
+        console.log(!address.length)
         if (address.length === 0) {
           state.address = {
             address: '还没有设置默认地址，选择或者填写地址信息'
@@ -105,7 +108,7 @@ export default {
       })
     }
     onMounted(() => {
-      init()
+      initData()
     })
     const goTo = () => {
       router.push({ path: '/address' })
@@ -129,10 +132,6 @@ export default {
           state.aliyun = res.qr_code_url
           state.wechat = res.qr_code_url
         })
-        // getPaymentQRCode(state.orderNo, { type: 'wechat' }).then((res) => {
-        //   console.log(res)
-        //   state.wechat = res.qr_code_url
-        // })
 
         // 轮询查看
         const timer = setInterval(() => {
@@ -170,10 +169,11 @@ export default {
 .create-order {
   background: #f9f9f9;
   .address-wrap {
+    position: fixed;
     text-align: left;
     margin-bottom: 20px;
     background: #fff;
-    position: relative;
+    position: fixed;
     margin-top: 44px;
     font-size: 14px;
     padding: 15px;
@@ -201,7 +201,11 @@ export default {
     }
   }
   .good {
-    margin-bottom: 120px;
+    position: fixed;
+    width: 100%;
+    top: 150px;
+    bottom: 100px;
+    overflow: auto;
   }
   .good-item {
     padding: 10px;
