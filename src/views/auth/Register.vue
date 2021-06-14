@@ -95,7 +95,6 @@ export default {
   font-size: 14px;
   margin-bottom: 20px;
   color: #42b983;
-  display: inline-block;
   float: left;
 }
 </style>

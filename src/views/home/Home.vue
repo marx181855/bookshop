@@ -7,7 +7,7 @@
     v-show="isTabFixed"
     @tabClick="tabClick"
     :titles="['畅销', '新书', '精选']"
-    style="margin-top:45px"
+    style="margin-top: 45px"
   ></TabControl>
 
   <div class="better-scroll-wrapper">
@@ -16,7 +16,11 @@
         <HomeSwiper :banners="banners"></HomeSwiper>
         <RecommendView :recommends="recommends"></RecommendView>
       </div>
-      <TabControl class='tab-control' @tabClick="tabClick" :titles="['畅销', '新书', '精选']"></TabControl>
+      <TabControl
+        class="tab-control"
+        @tabClick="tabClick"
+        :titles="['畅销', '新书', '精选']"
+      ></TabControl>
       <GoodList :goods="showGoods"></GoodList>
     </div>
   </div>
@@ -33,6 +37,7 @@ import BackTop from 'components/common/backtop/BackTop'
 import { getHomeAllData, getHomeGoods } from 'network/home'
 import { computed, nextTick, onMounted, reactive, ref } from 'vue'
 import BScroll from 'better-scroll'
+import { Toast } from 'vant'
 
 export default {
   name: 'Home',
@@ -45,11 +50,11 @@ export default {
     HomeSwiper
   },
   setup() {
-    let isTabFixed = ref(false)
-    let isShowBackTop = ref(false)
-    let banref = ref(null)
-    let banners = ref([])
-    let recommends = ref([])
+    const isTabFixed = ref(false)
+    const isShowBackTop = ref(false)
+    const banref = ref(null)
+    const banners = ref([])
+    const recommends = ref([])
 
     // 商品列表数据模型
     const goods = reactive({
@@ -59,6 +64,10 @@ export default {
     })
     let betterScroll = reactive({})
     const initRequestData = () => {
+      Toast.loading({
+        message: '加载中...',
+        forbidClick: true
+      })
       getHomeAllData().then((res) => {
         recommends.value = res.goods.data
         banners.value = res.slides
@@ -72,6 +81,7 @@ export default {
       getHomeGoods('recommend').then((res) => {
         goods.recommend.list = res.goods.data
       })
+      Toast.clear()
     }
 
     const initBetterScroll = () => {
@@ -117,7 +127,7 @@ export default {
       initBetterScroll()
     })
     const tabClick = (index) => {
-      let types = ['sales', 'new', 'recommend']
+      const types = ['sales', 'new', 'recommend']
       currentTypeTab.value = types[index]
       nextTick(() => {
         // 重新计算高度
@@ -125,7 +135,7 @@ export default {
       })
     }
 
-    let currentTypeTab = ref('sales')
+    const currentTypeTab = ref('sales')
     const showGoods = computed(() => {
       return goods[currentTypeTab.value].list
     })
@@ -161,5 +171,4 @@ export default {
   right: 0px;
   overflow: hidden;
 }
-
 </style>

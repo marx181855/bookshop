@@ -29,6 +29,7 @@ import { Toast } from 'vant'
 import { reactive, toRefs, onMounted, computed } from 'vue'
 import { areaList } from '@vant/area-data'
 import { useRouter, useRoute } from 'vue-router'
+
 export default {
   components: {
     NavBar
@@ -57,6 +58,10 @@ export default {
       state.addressId = addressId
 
       if (type === 'edit') {
+        Toast.loading({
+          message: '加载中...',
+          forbidClick: true
+        })
         getAddressDetail(addressId).then((res) => {
           console.log(res)
           const addressDetail = res
@@ -76,6 +81,7 @@ export default {
             isDefault: !!addressDetail.is_default,
             areaCode: _areaCode
           }
+          Toast.clear()
         })
       }
     })
@@ -127,16 +133,11 @@ export default {
 </script>
 
 <style lang="scss">
-.edit {
-  .van-field__body {
-    textarea {
-      height: 26px !important;
-    }
-  }
-}
-.address-edit-box {
-  margin-top: 44px;
-  .van-address-edit {
-  }
+.van-address-edit {
+  background-color: #f7f8fa;
+  position: fixed;
+  top: 45px;
+  bottom: 50px;
+  width: 100%;
 }
 </style>

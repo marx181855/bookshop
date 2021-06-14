@@ -1,3 +1,4 @@
+const CompressionPlugin = require('compression-webpack-plugin')
 module.exports = {
   configureWebpack: {
     resolve: {
@@ -8,7 +9,14 @@ module.exports = {
         utils: '@/utils',
         views: '@/views'
       }
-    }
+    },
+    plugins: [
+      new CompressionPlugin({
+        test: /\.js$|\.html$|\.css/,
+        threshold: 0,
+        deleteOriginalAssets: true
+      })
+    ]
   },
   chainWebpack: config => {
     config.optimization

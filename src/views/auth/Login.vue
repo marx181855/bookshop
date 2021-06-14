@@ -104,7 +104,6 @@ export default {
   font-size: 14px;
   margin-bottom: 20px;
   color: #42b983;
-  display: inline-block;
   float: left;
 }
 @media screen and (min-width: 768px) {

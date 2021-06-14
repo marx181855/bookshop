@@ -64,7 +64,7 @@ const routes = [
   {
     path: '/address',
     name: 'Address',
-    component: () => import('../views/profile/Address.vue'),
+    component: () => import('../views/address/Address.vue'),
     meta: {
       title: '地址管理',
       isAuthRequired: true
@@ -73,7 +73,7 @@ const routes = [
   {
     path: '/addressedit',
     name: 'AddressEdit',
-    component: () => import('../views/profile/AddressEdit.vue'),
+    component: () => import('../views/address/AddressEdit.vue'),
     meta: {
       title: '编辑地址',
       isAuthRequired: true

@@ -6,7 +6,7 @@
     <div class="user-box">
       <div class="user-info">
         <div class="info">
-          <img :src="user.avatar_url" alt />
+          <img v-lazy="user.avatar_url" alt="头像" />
           <div class="user-desc">
             <span>昵称：{{ user.name }}</span>
             <span>登录名：{{ user.email }}</span>
@@ -23,10 +23,6 @@
           <span>我的订单</span>
           <van-icon name="arrow" />
         </li>
-        <!-- <li class="van-hairline--bottom" @click="goTo('/account')">
-          <span>账号管理</span>
-          <van-icon name="arrow" />
-        </li> -->
         <li class="van-hairline--bottom" @click="goTo('/address')">
           <span>地址管理</span>
           <van-icon name="arrow" />
@@ -53,6 +49,7 @@ import { Toast } from 'vant'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { onMounted, reactive, toRefs } from 'vue'
+
 export default {
   components: {
     NavBar
@@ -64,9 +61,14 @@ export default {
       user: {}
     })
     onMounted(() => {
+      Toast.loading({
+        message: '加载中...',
+        forbidClick: true
+      })
       getUserDetail().then((res) => {
         state.user = res
         console.log(res)
+        Toast.clear()
       })
     })
     const toLogout = () => {

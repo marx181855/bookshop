@@ -5,7 +5,6 @@
       show-action
       label="书籍"
       placeholder="请输入搜索关键词"
-      @search="onSearch"
       background="#42b983"
       input-align="center"
       shape="round"
@@ -69,29 +68,28 @@
 </template>
 
 <script>
-import NavBar from 'components/common/navbar/NavBar'
 import BackTop from 'components/common/backtop/BackTop'
 import { computed, nextTick, onMounted, reactive, ref } from 'vue'
 import { getCategoryData, getCategoryGoods, searchProduct } from 'network/category'
 import { useRouter } from 'vue-router'
 import BScroll from 'better-scroll'
+import { Toast } from 'vant'
 
 export default {
   components: {
-    BackTop,
-    NavBar
+    BackTop
   },
   setup() {
     const router = useRouter()
-    let active = ref(1)
-    let activeKey = ref(0)
-    let categories = ref([])
-    let activeName = ref(0)
-    let isShowBackTop = ref(false)
+    const active = ref(1)
+    const activeKey = ref(0)
+    const categories = ref([])
+    const activeName = ref(0)
+    const isShowBackTop = ref(false)
     // 当前的排序条件
-    let currentOrderTab = ref('sales')
+    const currentOrderTab = ref('sales')
     // 当前的分类ID
-    let currentCid = ref(0)
+    const currentCid = ref(0)
 
     // 数据模型
     const goods = reactive({
@@ -108,15 +106,30 @@ export default {
         list: []
       }
     })
-
-    let searchKey = ref('')
-    const onSearch = () => {
+    const debounce = (func, delay) => {
+      let timer = null
+      console.log('我是防抖动函数')
+      return function () {
+        let firstTriggle = !timer
+        if (firstTriggle) {
+          func()
+        }
+        if (timer) {
+          clearTimeout(timer)
+        }
+        timer = setTimeout(() => {
+          timer = null
+        }, delay)
+      }
+    }
+    const searchKey = ref('')
+    const onSearch = debounce(() => {
       console.log('搜索中', searchKey.value)
       searchProduct(searchKey.value, currentOrderTab.value).then((res) => {
         console.log(res)
         goods[currentOrderTab.value].list = res.goods.data
       })
-    }
+    }, 2000)
     const onClear = () => {
       console.log('清除内容')
     }
@@ -182,8 +195,13 @@ export default {
     }
 
     onMounted(() => {
+      Toast.loading({
+        message: '加载中...',
+        forbidClick: true
+      })
       initRequestData()
       initBetterScroll()
+      Toast.clear()
     })
 
     // 排序选项卡
@@ -216,6 +234,7 @@ export default {
       onSearch,
       onClear,
       searchKey,
+      debounce,
       activeKey,
       categories,
       activeName,

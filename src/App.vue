@@ -101,6 +101,7 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    box-shadow: 1px 3px 8px black;
   }
   #nav {
     position: absolute;

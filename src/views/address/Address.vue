@@ -3,7 +3,9 @@
     <NavBar>
       <template v-slot:default>地址管理</template>
     </NavBar>
-    <div v-show="list.length == 0" style="margin-top: 200px">还没有地址信息，去添加吧！</div>
+    <div class="tip-text" v-show="list.length == 0">
+      <p>还没有地址信息，去添加吧！</p>
+    </div>
     <div class="address-item">
       <van-address-list
         v-model="chosenAddressId"
@@ -40,7 +42,7 @@ export default {
         Toast.clear()
         if (res.data.length === 0) {
           state.list = []
-          return
+          return false
         }
         state.list = res.data.map(item => {
           return {
@@ -84,20 +86,30 @@ export default {
 </script>
 
 <style lang="scss">
-.address-box {
-  height: 300px;
+.tip-text {
+  position: fixed;
+  top: 45px;
+  bottom: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.address-item {
+  position: fixed;
+  top: 45px;
+  bottom: 100px;
+  overflow: auto;
+  background-color: #f7f8fa;
   .van-radio__icon {
     display: none;
   }
-  .address-item {
-    margin-top: 45px;
-    .van-button {
-      background: var(--color-tint);
-      border-color: var(--color-tint);
+  .van-address-list__bottom {
+    bottom: 50px;
+    .van-address-list__add {
+      background-color: var(--color-tint);
+      border: 1px solid var(--color-tint);
     }
   }
-}
-.van-address-list__bottom {
-  bottom: 100px !important;
 }
 </style>

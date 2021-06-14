@@ -28,10 +28,11 @@
 
 <script>
 import NavBar from 'components/common/navbar/NavBar'
-import { reactive, ref, toRefs } from '@vue/reactivity'
+import { reactive, toRefs } from '@vue/reactivity'
 import { getOrderList } from 'network/order'
-import { computed, onMounted } from '@vue/runtime-core'
+import { onMounted } from '@vue/runtime-core'
 import orderItem from './childComponents/orderItem.vue'
+import { Toast } from 'vant'
 
 export default {
   components: {
@@ -50,15 +51,25 @@ export default {
       })
     }
     onMounted(() => {
+      Toast.loading({
+        message: '加载中...',
+        forbidClick: true
+      })
       initData()
+      Toast.clear()
     })
     const switchTab = () => {
+      Toast.loading({
+        message: '加载中...',
+        forbidClick: true
+      })
       console.log('🚀 ~ file: Order.vue ~ line 59 ~ switchTab ~ state.currentTab', state.currentTab)
 
       getOrderList(state.currentTab).then(res => {
         console.log(res)
         state.orderList = res.data
         console.log(state.orderList.length)
+        Toast.clear()
       })
     }
     return {
