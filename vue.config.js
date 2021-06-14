@@ -1,4 +1,4 @@
-// const CompressionPlugin = require('compression-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
 module.exports = {
   configureWebpack: {
     resolve: {
@@ -11,11 +11,11 @@ module.exports = {
       }
     },
     plugins: [
-      // new CompressionPlugin({
-      //   test: /\.js$|\.html$|\.css/,
-      //   threshold: 0,
-      //   deleteOriginalAssets: false
-      // })
+      new CompressionPlugin({
+        test: /\.js$|\.html$|\.css/,
+        threshold: 0,
+        deleteOriginalAssets: true
+      })
     ]
   },
   chainWebpack: config => {
