@@ -14,7 +14,7 @@ module.exports = {
       new CompressionPlugin({
         test: /\.js$|\.html$|\.css/,
         threshold: 0,
-        deleteOriginalAssets: true
+        deleteOriginalAssets: false
       })
     ]
   },
